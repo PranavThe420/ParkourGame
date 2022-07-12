@@ -16,11 +16,22 @@ public class Movement : MonoBehaviour
     public LayerMask groundMask;
     bool isgrounded;
 
+    public Transform wallcheck;
+    public float walldistance = 1f;
+    public LayerMask wallMask;
+    bool iswall;
+
 
     Vector3 velocity;
     // Update is called once per frame
     void Update()
     {
+        iswall = Physics.CheckSphere(wallcheck.position, walldistance, wallMask);
+
+        if (iswall && Input.GetButtonDown("Jump"))
+        {
+            velocity.y = Mathf.Sqrt(3f * -2 * gravity);
+        }
 
         isgrounded = Physics.CheckSphere(groundcheck.position, grounddistance, groundMask);
 
