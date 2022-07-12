@@ -26,7 +26,15 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
         iswall = Physics.CheckSphere(wallcheck.position, walldistance, wallMask);
+
+        if (iswall && velocity.y <0)
+        {
+            velocity.y = -2f;
+        }
 
         if (iswall && Input.GetButtonDown("Jump"))
         {
@@ -39,8 +47,7 @@ public class Movement : MonoBehaviour
         {
             velocity.y = -2f;
         }
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        
 
         Vector3 move = transform.right * x + transform.forward * z;
 
